@@ -41,13 +41,13 @@ export const examples = [
       'object:\n  apiVersion: v1\n  kind: Pod\n  metadata:\n    name: nginx\n    labels:\n      app: nginx\n  spec:\n    containers:\n      - name: ok1\n        image: registry.com:80/nginx:v1.2.3-rc.1\n      - name: ok2\n        image: registry.com:80/nginx@sha256:asdf\n      - name: wrong\n        image: registry.com:80/nginx:latest  # comment the wrong container to test a success scenario\n',
     category: 'Kubernetes',
   },
-  {
-    name: 'URLs',
-    cel: "// Examples of Kubernetes URL CEL library that is available in the playground.\n// https://kubernetes.io/docs/reference/using-api/cel/#kubernetes-url-library\n\nisURL(object.href) \n&& url(object.href).getScheme() == 'https' \n&& url(object.href).getHost() == 'example.com:80'\n&& url(object.href).getHostname() == 'example.com'\n&& url(object.href).getPort() == '80'\n&& url(object.href).getEscapedPath() == '/path'\n&& url(object.href).getQuery().size() == 1\n",
-    dataInput:
-      '{\n  "object": {\n    "href": "https://user:pass@example.com:80/path?query=val#fragment"\n  }\n}\n',
-    category: 'General',
-  },
+  // {
+  //   name: 'URLs',
+  //   cel: "// Examples of Kubernetes URL CEL library that is available in the playground.\n// https://kubernetes.io/docs/reference/using-api/cel/#kubernetes-url-library\n\nisURL(object.href) \n&& url(object.href).getScheme() == 'https' \n&& url(object.href).getHost() == 'example.com:80'\n&& url(object.href).getHostname() == 'example.com'\n&& url(object.href).getPort() == '80'\n&& url(object.href).getEscapedPath() == '/path'\n&& url(object.href).getQuery().size() == 1\n",
+  //   dataInput:
+  //     '{\n  "object": {\n    "href": "https://user:pass@example.com:80/path?query=val#fragment"\n  }\n}\n',
+  //   category: 'General',
+  // },
   {
     name: 'Check JWT custom claims',
     cel: "// Exercise provided in CEL-Go Google Codelab.\n// https://codelabs.developers.google.com/codelabs/cel-go/index.html#10\n// \n// Determine whether the jwt.extra_claims has at least one key that starts\n// with the group prefix, and ensure that all group-like keys have list\n// values containing only strings that end with '@acme.co'.\n\njwt.extra_claims.exists(c, c.startsWith('group'))\n&& jwt.extra_claims\n  .filter(c, c.startsWith('group'))\n      .all(c, jwt.extra_claims[c]\n          .all(g, g.endsWith('@acme.co')))\n",

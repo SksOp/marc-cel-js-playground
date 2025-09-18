@@ -19,15 +19,47 @@ import { CelVariablesEditor } from './cel-variables-editor';
 import { CelOutputDisplay } from './cel-output-display';
 import { useCelService } from '@/hooks/use-cel-service';
 import { safeStringify } from '@/package/lib/parser';
+import * as yaml from 'js-yaml';
+import { examples } from '@/package/template/template';
 
 export function CelPlayground() {
-  const [expression, setExpression] = useState('1 + 2');
-  const [variables, setVariables] = useState('{}');
+  // Load default template on page load
+  const defaultTemplate = examples.find(
+    (example) => example.name === 'default'
+  );
+  const [expression, setExpression] = useState(defaultTemplate?.cel || '1 + 2');
+  const [variables, setVariables] = useState(
+    defaultTemplate?.dataInput || '{}'
+  );
   const [output, setOutput] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedVersion, setSelectedVersion] = useState<string>('');
 
   const { cel, loadVersion, isVersionLoading } = useCelService();
+
+  const parseVariables = (variablesText: string) => {
+    if (!variablesText.trim()) {
+      return {};
+    }
+
+    const trimmed = variablesText.trim();
+
+    // Try JSON first
+    try {
+      return JSON.parse(trimmed);
+    } catch {
+      // Try YAML
+      try {
+        return yaml.load(trimmed) as any;
+      } catch (err) {
+        throw new Error(
+          `Invalid format: ${
+            err instanceof Error ? err.message : 'Unknown error'
+          }`
+        );
+      }
+    }
+  };
 
   const handleRun = async () => {
     if (!cel) {
@@ -41,11 +73,11 @@ export function CelPlayground() {
       let context = {};
       if (variables.trim()) {
         try {
-          context = JSON.parse(variables);
+          context = parseVariables(variables);
         } catch (err) {
           setOutput(
             `Error parsing variables: ${
-              err instanceof Error ? err.message : 'Invalid JSON'
+              err instanceof Error ? err.message : 'Invalid format'
             }`
           );
           setIsLoading(false);
@@ -76,11 +108,11 @@ export function CelPlayground() {
       let context = {};
       if (variables.trim()) {
         try {
-          context = JSON.parse(variables);
+          context = parseVariables(variables);
         } catch (err) {
           setOutput(
             `Error parsing variables: ${
-              err instanceof Error ? err.message : 'Invalid JSON'
+              err instanceof Error ? err.message : 'Invalid format'
             }`
           );
           setIsLoading(false);
@@ -106,20 +138,26 @@ export function CelPlayground() {
     await loadVersion(version);
   };
 
+  const handleTemplateSelect = (template: {
+    cel: string;
+    dataInput: string;
+    name: string;
+  }) => {
+    setExpression(template.cel);
+    setVariables(template.dataInput);
+  };
+
   return (
     <div className="space-y-6">
-      <div className="text-center space-y-2">
-        <h1 className="text-4xl font-bold tracking-tight">CEL Playground</h1>
-        <p className="text-muted-foreground">
-          Test Common Expression Language (CEL) expressions with JavaScript
-          support
-        </p>
-      </div>
-
       <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-lg font-semibold">CEL Playground</h2>
+        <div className="text-left space-y-2">
+          <h1 className="text-4xl font-bold tracking-tight">CEL Playground</h1>
+          <p className="text-muted-foreground">
+            Test Common Expression Language (CEL) expressions with JavaScript
+            support
+          </p>
         </div>
+
         <CelVersionSelector
           onVersionChange={handleVersionChange}
           isLoading={isVersionLoading}
@@ -134,7 +172,11 @@ export function CelPlayground() {
             <CardDescription>Write your CEL expression here</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <CelExpressionEditor value={expression} onChange={setExpression} />
+            <CelExpressionEditor
+              value={expression}
+              onChange={setExpression}
+              onTemplateSelect={handleTemplateSelect}
+            />
             <div className="flex gap-2 justify-end">
               <Button
                 onClick={handleEvaluate}
@@ -153,9 +195,9 @@ export function CelPlayground() {
         {/* Right side - Variables */}
         <Card>
           <CardHeader>
-            <CardTitle>Variables (JSON)</CardTitle>
+            <CardTitle>Variables</CardTitle>
             <CardDescription>
-              Define variables for your expression
+              Define variables for your expression (JSON or YAML)
             </CardDescription>
           </CardHeader>
           <CardContent>

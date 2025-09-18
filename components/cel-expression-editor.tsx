@@ -31,10 +31,6 @@ export function CelExpressionEditor({
       <Card className="p-0 overflow-hidden">
         <CelEditor value={value} onChange={onChange} />
       </Card>
-      <div className="text-xs text-muted-foreground">
-        <code className="bg-muted px-1 rounded">name == 'John'</code>,{' '}
-        <code className="bg-muted px-1 rounded">size &gt;10</code>
-      </div>
     </div>
   );
 }

@@ -206,7 +206,7 @@ export function CelPlayground() {
         {/* Left side - CEL Expression */}
         <article>
           <Card>
-            <CardHeader>
+            <CardHeader className="sr-only">
               <CardTitle>CEL Expression</CardTitle>
               <CardDescription>Write your CEL expression here</CardDescription>
             </CardHeader>

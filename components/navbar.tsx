@@ -17,11 +17,13 @@ export function Navbar() {
   }
 
   return (
-    <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-3">
+    <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-5">
       <div className="container flex h-14 max-w-screen-2xl items-center mx-auto">
         <div className="mr-4 flex">
           <a className="mr-6 flex items-center space-x-2" href="/">
-            <Code className="h-6 w-6" />
+            <div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary/10 border border-primary/20">
+              <Code className="h-4 w-4" />
+            </div>
             <span className="hidden font-bold sm:inline-block">
               CEL JS Playground
             </span>

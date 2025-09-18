@@ -42,10 +42,7 @@ export function CelTemplateSelector({
             }
           }}
         >
-          <SelectTrigger
-            id="template-selector"
-            className="border-0 focus:ring-0"
-          >
+          <SelectTrigger id="template-selector">
             <SelectValue placeholder="Select a template..." />
           </SelectTrigger>
           <SelectContent>

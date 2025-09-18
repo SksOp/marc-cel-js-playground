@@ -192,7 +192,7 @@ export function CelPlayground() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="text-left space-y-2">
-          <h1 className="text-4xl font-bold tracking-tight">CEL Playground</h1>
+          {/* <h1 className="text-2xl font-bold tracking-tight">CEL Playground</h1> */}
           <p className="text-muted-foreground">
             Test Common Expression Language (CEL) expressions with JavaScript
             support

@@ -99,22 +99,34 @@ export function ShareButton({
           ) : (
             <>
               <Copy className="h-4 w-4" />
-              Share
             </>
           )}
         </Button>
       </HoverCardTrigger>
-      <HoverCardContent side="top" className="max-w-xs">
+      <HoverCardContent
+        side="top"
+        className="max-w-md w-full bg-foreground/5  backdrop-blur-md border border-foreground/10"
+      >
         <div className="space-y-2">
-          <p className="font-semibold">How sharing works:</p>
-          <ul className="text-sm space-y-1">
+          <p className="font-semibold text-xs">How sharing works:</p>
+          <ul className="text-xs space-y-1">
             <li>
-              • Your current expression, variables, and CEL version are encoded
-              into the URL
+              • Your current <strong>expression</strong>,{' '}
+              <strong>variables</strong>, and <strong>CEL version</strong> are
+              encoded into the <strong>URL</strong>
             </li>
-            <li>• Anyone with the link will see your exact playground state</li>
-            <li>• Perfect for sharing examples, debugging, or collaboration</li>
-            <li>• The URL updates automatically as you make changes</li>
+            <li>
+              • Anyone with the <strong>link</strong> will see your exact{' '}
+              <strong>playground state</strong>
+            </li>
+            <li>
+              • Perfect for sharing <strong>examples</strong>,{' '}
+              <strong>debugging</strong>, or <strong>collaboration</strong>
+            </li>
+            <li>
+              • The <strong>URL updates automatically</strong> as you make
+              changes
+            </li>
           </ul>
         </div>
       </HoverCardContent>

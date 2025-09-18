@@ -21,21 +21,62 @@ import { useCelService } from '@/hooks/use-cel-service';
 import { safeStringify } from '@/package/lib/parser';
 import * as yaml from 'js-yaml';
 import { examples } from '@/package/template/template';
+import { ShareButton } from './share-button';
+import { parseUrlState } from '@/lib/url-utils';
 
 export function CelPlayground() {
-  // Load default template on page load
-  const defaultTemplate = examples.find(
-    (example) => example.name === 'default'
-  );
-  const [expression, setExpression] = useState(defaultTemplate?.cel || '1 + 2');
-  const [variables, setVariables] = useState(
-    defaultTemplate?.dataInput || '{}'
-  );
+  // Parse URL state first, before any other initialization
+  const urlState = parseUrlState();
+
+  // Determine initial state based on URL or default template
+  const getInitialState = () => {
+    if (urlState) {
+      return {
+        expression: urlState.expression || '1 + 2',
+        variables: urlState.variables || '{}',
+        version: urlState.version || '',
+      };
+    }
+
+    // Only load default template if no URL state
+    const defaultTemplate = examples.find(
+      (example) => example.name === 'default'
+    );
+
+    return {
+      expression: defaultTemplate?.cel || '1 + 2',
+      variables: defaultTemplate?.dataInput || '{}',
+      version: '',
+    };
+  };
+
+  const initialState = getInitialState();
+
+  const [expression, setExpression] = useState(initialState.expression);
+  const [variables, setVariables] = useState(initialState.variables);
   const [output, setOutput] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedVersion, setSelectedVersion] = useState<string>('');
+  const [selectedVersion, setSelectedVersion] = useState<string>(
+    initialState.version
+  );
 
   const { cel, loadVersion, isVersionLoading } = useCelService();
+
+  // Load version from URL if present and clean up URL
+  useEffect(() => {
+    if (urlState?.version && urlState.version !== selectedVersion) {
+      handleVersionChange(urlState.version);
+    }
+
+    // Remove state parameter from URL after loading
+    if (urlState && typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      if (url.searchParams.has('state')) {
+        url.searchParams.delete('state');
+        window.history.replaceState({}, '', url.toString());
+      }
+    }
+  }, [urlState?.version, urlState]);
 
   const parseVariables = (variablesText: string) => {
     if (!variablesText.trim()) {
@@ -158,10 +199,17 @@ export function CelPlayground() {
           </p>
         </div>
 
-        <CelVersionSelector
-          onVersionChange={handleVersionChange}
-          isLoading={isVersionLoading}
-        />
+        <div className="flex items-center gap-4">
+          <ShareButton
+            expression={expression}
+            variables={variables}
+            version={selectedVersion}
+          />
+          <CelVersionSelector
+            onVersionChange={handleVersionChange}
+            isLoading={isVersionLoading}
+          />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

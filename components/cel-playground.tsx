@@ -189,13 +189,15 @@ export function CelPlayground() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <main className="space-y-6">
+      <header className="flex items-center justify-between">
         <div className="text-left space-y-2">
-          {/* <h1 className="text-2xl font-bold tracking-tight">CEL Playground</h1> */}
+          <h1 className="text-4xl font-bold tracking-tight">CEL Playground</h1>
           <p className="text-muted-foreground">
-            Test Common Expression Language (CEL) expressions with JavaScript
-            support
+            Interactive environment for Common Expression Language (CEL) with
+            JavaScript support. Write, test, and share CEL expressions with
+            JSON/YAML variables. Perfect for Kubernetes, Istio, and policy
+            validation.
           </p>
         </div>
 
@@ -210,62 +212,68 @@ export function CelPlayground() {
             isLoading={isVersionLoading}
           />
         </div>
-      </div>
+      </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left side - CEL Expression */}
-        <Card>
-          <CardHeader>
-            <CardTitle>CEL Expression</CardTitle>
-            <CardDescription>Write your CEL expression here</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <CelExpressionEditor
-              value={expression}
-              onChange={setExpression}
-              onTemplateSelect={handleTemplateSelect}
-            />
-            <div className="flex gap-2 justify-end">
-              <Button
-                onClick={handleEvaluate}
-                disabled={!cel || isLoading}
-                variant="secondary"
-              >
-                {isLoading ? 'Evaluating...' : 'Evaluate Expression'}
-              </Button>
-              <Button onClick={handleRun} disabled={!cel || isLoading}>
-                {isLoading ? 'Running...' : 'Run Expression'}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        <article>
+          <Card>
+            <CardHeader>
+              <CardTitle>CEL Expression</CardTitle>
+              <CardDescription>Write your CEL expression here</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <CelExpressionEditor
+                value={expression}
+                onChange={setExpression}
+                onTemplateSelect={handleTemplateSelect}
+              />
+              <div className="flex gap-2 justify-end">
+                <Button
+                  onClick={handleEvaluate}
+                  disabled={!cel || isLoading}
+                  variant="secondary"
+                >
+                  {isLoading ? 'Evaluating...' : 'Evaluate Expression'}
+                </Button>
+                <Button onClick={handleRun} disabled={!cel || isLoading}>
+                  {isLoading ? 'Running...' : 'Run Expression'}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </article>
 
         {/* Right side - Variables */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Variables</CardTitle>
-            <CardDescription>
-              Define variables for your expression (JSON or YAML)
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <CelVariablesEditor value={variables} onChange={setVariables} />
-          </CardContent>
-        </Card>
-      </div>
+        <article>
+          <Card>
+            <CardHeader>
+              <CardTitle>Variables</CardTitle>
+              <CardDescription>
+                Define variables for your expression (JSON or YAML)
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <CelVariablesEditor value={variables} onChange={setVariables} />
+            </CardContent>
+          </Card>
+        </article>
+      </section>
 
       <Separator />
 
       {/* Output */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Output</CardTitle>
-          <CardDescription>Result of your CEL expression</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <CelOutputDisplay output={output} />
-        </CardContent>
-      </Card>
-    </div>
+      <section>
+        <Card>
+          <CardHeader>
+            <CardTitle>Output</CardTitle>
+            <CardDescription>Result of your CEL expression</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <CelOutputDisplay output={output} />
+          </CardContent>
+        </Card>
+      </section>
+    </main>
   );
 }

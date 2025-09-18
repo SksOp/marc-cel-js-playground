@@ -1,12 +1,12 @@
 # CEL Playground
 
-An interactive environment to explore and experiment with the Common Expression Language (CEL) using JavaScript. Built with Next.js and powered by `@marcbachmann/cel-js`.
+An interactive environment to explore and experiment with the Common Expression Language (CEL) using JavaScript. Built with Next.js and powered by [`@marcbachmann/cel-js`](https://github.com/marcbachmann/cel-js).
 
 ## Features
 
 ### 🚀 **Core Functionality**
 
-- **Interactive CEL Evaluation**: Write and test CEL expressions in real-time using `@marcbachmann/cel-js`
+- **Interactive CEL Evaluation**: Write and test CEL expressions in real-time using [`@marcbachmann/cel-js`](https://github.com/marcbachmann/cel-js)
 - **Dynamic Version Loading**: Load different CEL-JS versions on-demand via ESM
 - **Dual Format Support**: Input variables in both JSON and YAML formats
 - **Auto-Format Detection**: Automatically detects and validates JSON/YAML input
@@ -125,7 +125,7 @@ cel-js-playground/
 - **TypeScript**: Type-safe development
 - **Tailwind CSS**: Utility-first CSS framework
 - **Radix UI**: Accessible component primitives
-- **@marcbachmann/cel-js**: JavaScript implementation of CEL
+- **[@marcbachmann/cel-js](https://github.com/marcbachmann/cel-js)**: JavaScript implementation of CEL
 - **js-yaml**: YAML parsing and generation
 - **fast-json-stringify**: High-performance JSON serialization
 - **ESM.sh**: Dynamic module loading for CEL versions
@@ -175,8 +175,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- [CEL Specification](https://github.com/google/cel-spec) - Common Expression Language
-- [@marcbachmann/cel-js](https://github.com/marcbachmann/cel-js) - JavaScript implementation of CEL
+- [CEL Specification](https://github.com/google/cel-spec) - Common Expression Language specification
+- [@marcbachmann/cel-js](https://github.com/marcbachmann/cel-js) - High-performance JavaScript implementation of CEL with advanced features
 - [Next.js](https://nextjs.org/) - React framework
 - [Tailwind CSS](https://tailwindcss.com/) - CSS framework
 - [ESM.sh](https://esm.sh/) - ES modules CDN for dynamic loading

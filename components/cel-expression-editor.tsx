@@ -43,7 +43,6 @@ export function CelExpressionEditor({
         />
       </Card>
       <div className="text-xs text-muted-foreground">
-        Examples: <code className="bg-muted px-1 rounded">1 + 2</code>,{' '}
         <code className="bg-muted px-1 rounded">name == 'John'</code>,{' '}
         <code className="bg-muted px-1 rounded">size &gt;10</code>
       </div>

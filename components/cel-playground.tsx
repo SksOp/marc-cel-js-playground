@@ -190,29 +190,17 @@ export function CelPlayground() {
 
   return (
     <main className="space-y-6">
-      <header className="flex items-center justify-between">
-        <div className="text-left space-y-2">
-          <h1 className="text-4xl font-bold tracking-tight">CEL Playground</h1>
-          <p className="text-muted-foreground">
-            Interactive environment for Common Expression Language (CEL) with
-            JavaScript support. Write, test, and share CEL expressions with
-            JSON/YAML variables. Perfect for Kubernetes, Istio, and policy
-            validation.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <ShareButton
-            expression={expression}
-            variables={variables}
-            version={selectedVersion}
-          />
-          <CelVersionSelector
-            onVersionChange={handleVersionChange}
-            isLoading={isVersionLoading}
-          />
-        </div>
-      </header>
+      <div className="flex items-center gap-4 justify-end">
+        <ShareButton
+          expression={expression}
+          variables={variables}
+          version={selectedVersion}
+        />
+        <CelVersionSelector
+          onVersionChange={handleVersionChange}
+          isLoading={isVersionLoading}
+        />
+      </div>
 
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left side - CEL Expression */}

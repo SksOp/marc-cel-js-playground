@@ -39,9 +39,24 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div className="container mx-auto px-4 py-8">
-        <CelPlayground />
-      </div>
+      <main className="space-y-6">
+        <header className="flex items-center justify-between sr-only">
+          <div className="text-left space-y-2">
+            <h1 className="text-4xl font-bold tracking-tight">
+              CEL Playground
+            </h1>
+            <p className="text-muted-foreground">
+              Interactive environment for Common Expression Language (CEL) with
+              JavaScript support. Write, test, and share CEL expressions with
+              JSON/YAML variables. Perfect for Kubernetes, Istio, and policy
+              validation.
+            </p>
+          </div>
+        </header>
+        <div className="container mx-auto px-4 py-8">
+          <CelPlayground />
+        </div>
+      </main>
     </>
   );
 }

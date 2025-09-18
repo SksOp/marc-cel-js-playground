@@ -116,25 +116,15 @@ export function CelPlayground() {
         </p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            Configuration
-            {selectedVersion && (
-              <Badge variant="secondary">v{selectedVersion}</Badge>
-            )}
-          </CardTitle>
-          <CardDescription>
-            Select a CEL-JS version to get started
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <CelVersionSelector
-            onVersionChange={handleVersionChange}
-            isLoading={isVersionLoading}
-          />
-        </CardContent>
-      </Card>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-lg font-semibold">CEL Playground</h2>
+        </div>
+        <CelVersionSelector
+          onVersionChange={handleVersionChange}
+          isLoading={isVersionLoading}
+        />
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left side - CEL Expression */}

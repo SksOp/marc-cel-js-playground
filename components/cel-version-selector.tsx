@@ -8,8 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { Loader2, RefreshCw } from 'lucide-react';
+import { Github, Loader2 } from 'lucide-react';
 import { useCelService } from '@/hooks/use-cel-service';
 
 interface CelVersionSelectorProps {
@@ -49,37 +48,25 @@ export function CelVersionSelector({
     onVersionChange(version);
   };
 
-  const handleRefresh = () => {
-    loadVersionsList();
-  };
-
   return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-2">
-        <label htmlFor="version-select" className="text-sm font-medium">
-          CEL-JS Version:
-        </label>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleRefresh}
-          disabled={isLoadingVersions}
-        >
-          {isLoadingVersions ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <RefreshCw className="h-4 w-4" />
-          )}
-        </Button>
-      </div>
+    <div className="flex items-center gap-3">
+      <a
+        href="https://github.com/marcbachmann/cel-js"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+      >
+        <Github className="h-4 w-4" />
+        <span className="font-mono">marcbachmann/cel-js</span>
+      </a>
 
       <Select
         value={selectedVersion}
         onValueChange={handleVersionSelect}
         disabled={isLoadingVersions || isLoading}
       >
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="Select a version..." />
+        <SelectTrigger className="w-32">
+          <SelectValue placeholder="v..." />
         </SelectTrigger>
         <SelectContent>
           {availableVersions.map((version) => (
@@ -87,9 +74,7 @@ export function CelVersionSelector({
               <div className="flex items-center gap-2">
                 <span>{version}</span>
                 {version === latestVersion && (
-                  <span className="text-xs text-muted-foreground">
-                    (latest)
-                  </span>
+                  <span className="text-xs text-muted-foreground">latest</span>
                 )}
               </div>
             </SelectItem>
@@ -98,10 +83,7 @@ export function CelVersionSelector({
       </Select>
 
       {isLoading && (
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Loader2 className="h-4 w-4 animate-spin" />
-          Loading CEL-JS...
-        </div>
+        <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
       )}
     </div>
   );

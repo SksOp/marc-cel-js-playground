@@ -166,14 +166,10 @@ export function CelVariablesEditor({
           placeholder='{"name": "John", "age": 30, "active": true}\n\n# Or use YAML format:\n# name: John\n# age: 30\n# active: true'
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className={`min-h-[120px] resize-none border-0 focus-visible:ring-0 ${
+          className={`min-h-[120px] resize-none border-0 focus-visible:ring-0 md:text-xs text-xs font-code  ${
             !isValidFormat ? 'border-red-500' : ''
           }`}
           spellCheck={false}
-          style={{
-            fontFamily:
-              'ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-          }}
         />
       </Card>
 

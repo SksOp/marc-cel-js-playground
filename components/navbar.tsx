@@ -17,7 +17,7 @@ export function Navbar() {
   }
 
   return (
-    <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-3">
       <div className="container flex h-14 max-w-screen-2xl items-center mx-auto">
         <div className="mr-4 flex">
           <a className="mr-6 flex items-center space-x-2" href="/">

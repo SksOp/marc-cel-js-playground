@@ -34,12 +34,8 @@ export function CelExpressionEditor({
           placeholder="Enter CEL expression... (e.g., 1 + 2, name == 'John', size > 10)"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="min-h-[120px] border-0 focus-visible:ring-0"
+          className="min-h-[120px] border-0 focus-visible:ring-0  md:text-xs text-xs font-code "
           spellCheck={false}
-          style={{
-            fontFamily:
-              'ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-          }}
         />
       </Card>
       <div className="text-xs text-muted-foreground">

@@ -1,12 +1,12 @@
 'use client';
 
-import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import * as yaml from 'js-yaml';
+import { VariableEditor } from './editor/variable';
 
 interface CelVariablesEditorProps {
   value: string;
@@ -22,6 +22,7 @@ export function CelVariablesEditor({
   const [detectedFormat, setDetectedFormat] = useState<
     'json' | 'yaml' | 'unknown'
   >('unknown');
+  const [editorLanguage, setEditorLanguage] = useState<string>('json');
 
   const detectFormat = (text: string): 'json' | 'yaml' | 'unknown' => {
     const trimmed = text.trim();
@@ -46,6 +47,7 @@ export function CelVariablesEditor({
   const parseInput = (text: string) => {
     const format = detectFormat(text);
     setDetectedFormat(format);
+    setEditorLanguage(format === 'yaml' ? 'yaml' : 'json');
 
     if (!text.trim()) {
       setIsValidFormat(true);
@@ -63,10 +65,12 @@ export function CelVariablesEditor({
         try {
           JSON.parse(text);
           setDetectedFormat('json');
+          setEditorLanguage('json');
         } catch {
           try {
             yaml.load(text);
             setDetectedFormat('yaml');
+            setEditorLanguage('yaml');
           } catch {
             throw new Error('Invalid format');
           }
@@ -160,16 +164,11 @@ export function CelVariablesEditor({
         )}
       </div>
 
-      <Card className="p-0">
-        <Textarea
-          id="cel-variables"
-          placeholder='{"name": "John", "age": 30, "active": true}\n\n# Or use YAML format:\n# name: John\n# age: 30\n# active: true'
+      <Card className="p-0 overflow-hidden">
+        <VariableEditor
           value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className={`min-h-[120px] resize-none border-0 focus-visible:ring-0 md:text-xs text-xs font-code  ${
-            !isValidFormat ? 'border-red-500' : ''
-          }`}
-          spellCheck={false}
+          onChange={onChange}
+          language={editorLanguage as 'json' | 'yaml'}
         />
       </Card>
 

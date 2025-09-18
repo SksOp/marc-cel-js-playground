@@ -73,7 +73,7 @@ An interactive environment to explore and experiment with the Common Expression 
 1. **Select a CEL Version**: Choose your preferred CEL-JS version from the dropdown
 2. **Write Expression**: Enter your CEL expression in the left panel
 3. **Define Variables**: Add input data in JSON or YAML format in the right panel
-4. **Evaluate**: Click "Run Expression" to see the result
+4. **Evaluate**: Click "Run" to see the result
 
 ### Using Templates
 

@@ -222,10 +222,10 @@ export function CelPlayground() {
                   disabled={!cel || isLoading}
                   variant="secondary"
                 >
-                  {isLoading ? 'Evaluating...' : 'Evaluate Expression'}
+                  {isLoading ? 'Evaluating...' : 'Evaluate'}
                 </Button>
                 <Button onClick={handleRun} disabled={!cel || isLoading}>
-                  {isLoading ? 'Running...' : 'Run Expression'}
+                  {isLoading ? 'Running...' : 'Run'}
                 </Button>
               </div>
             </CardContent>
@@ -235,7 +235,7 @@ export function CelPlayground() {
         {/* Right side - Variables */}
         <article>
           <Card>
-            <CardHeader>
+            <CardHeader className="sr-only">
               <CardTitle>Variables</CardTitle>
               <CardDescription>
                 Define variables for your expression (JSON or YAML)

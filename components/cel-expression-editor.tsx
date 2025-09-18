@@ -1,9 +1,9 @@
 'use client';
 
-import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import { CelTemplateSelector } from './cel-template-selector';
+import { CelEditor } from './editor/cel';
 
 interface CelExpressionEditorProps {
   value: string;
@@ -28,15 +28,8 @@ export function CelExpressionEditor({
           <CelTemplateSelector onTemplateSelect={onTemplateSelect} />
         )}
       </div>
-      <Card className="p-0">
-        <Textarea
-          id="cel-expression"
-          placeholder="Enter CEL expression... (e.g., 1 + 2, name == 'John', size > 10)"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="min-h-[120px] border-0 focus-visible:ring-0  md:text-xs text-xs font-code "
-          spellCheck={false}
-        />
+      <Card className="p-0 overflow-hidden">
+        <CelEditor value={value} onChange={onChange} />
       </Card>
       <div className="text-xs text-muted-foreground">
         <code className="bg-muted px-1 rounded">name == 'John'</code>,{' '}

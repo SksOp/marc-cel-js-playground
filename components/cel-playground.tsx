@@ -20,8 +20,6 @@ import { CelOutputDisplay } from './cel-output-display';
 import { useCelService } from '@/hooks/use-cel-service';
 import { safeStringify } from '@/package/lib/parser';
 
-// Generic schema where we coerce BigInt -> string
-
 export function CelPlayground() {
   const [expression, setExpression] = useState('1 + 2');
   const [variables, setVariables] = useState('{}');
@@ -60,6 +58,41 @@ export function CelPlayground() {
       console.log(safeStringify(result));
       setOutput(safeStringify(result));
     } catch (err) {
+      setOutput(
+        `Error: ${err instanceof Error ? err.message : 'Unknown error'}`
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleEvaluate = async () => {
+    if (!cel) {
+      setOutput('Error: Please select a CEL-JS version first!');
+      return;
+    }
+    setIsLoading(true);
+    try {
+      let context = {};
+      if (variables.trim()) {
+        try {
+          context = JSON.parse(variables);
+        } catch (err) {
+          setOutput(
+            `Error parsing variables: ${
+              err instanceof Error ? err.message : 'Invalid JSON'
+            }`
+          );
+          setIsLoading(false);
+          return;
+        }
+      }
+      const result = cel.evaluate(expression, context);
+      console.log(result);
+      setOutput(safeStringify(result));
+      return;
+    } catch (err) {
+      console.error(err);
       setOutput(
         `Error: ${err instanceof Error ? err.message : 'Unknown error'}`
       );
@@ -112,13 +145,18 @@ export function CelPlayground() {
           </CardHeader>
           <CardContent className="space-y-4">
             <CelExpressionEditor value={expression} onChange={setExpression} />
-            <Button
-              onClick={handleRun}
-              disabled={!cel || isLoading}
-              className="w-full"
-            >
-              {isLoading ? 'Running...' : 'Run Expression'}
-            </Button>
+            <div className="flex gap-2 justify-end">
+              <Button
+                onClick={handleEvaluate}
+                disabled={!cel || isLoading}
+                variant="secondary"
+              >
+                {isLoading ? 'Evaluating...' : 'Evaluate Expression'}
+              </Button>
+              <Button onClick={handleRun} disabled={!cel || isLoading}>
+                {isLoading ? 'Running...' : 'Run Expression'}
+              </Button>
+            </div>
           </CardContent>
         </Card>
 

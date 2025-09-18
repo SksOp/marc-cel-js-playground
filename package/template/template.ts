@@ -1,7 +1,7 @@
 export const examples = [
   {
     name: 'default',
-    cel: "// Welcome to the CEL Playground!\n// CEL Playground is an interactive WebAssembly powered environment to explore and experiment with the Common Expression Language (CEL).\n//\n// - Write your CEL expression here\n// - Use the area on the side for input data, in YAML or JSON format\n// - Press 'Run' to evaluate your CEL expression against the input data\n// - Explore our collection of examples for inspiration\n\naccount.balance >= transaction.withdrawal\n    || (account.overdraftProtection\n    && account.overdraftLimit >= transaction.withdrawal  - account.balance)\n",
+    cel: "// Welcome to the CEL Playground!\n// CEL Playground is an interactive environment to explore and experiment with the Common Expression Language (CEL) using JavaScript.\n//\n// - Write your CEL expression here\n// - Use the area on the side for input data, in YAML or JSON format\n// - Press 'Run' to evaluate your CEL expression against the input data\n// - Explore our collection of examples for inspiration\n// - Share your work with others using the Share button\n\naccount.balance >= transaction.withdrawal\n    || (account.overdraftProtection\n    && account.overdraftLimit >= transaction.withdrawal  - account.balance)\n",
     dataInput:
       '# Here is the input data in YAML or JSON format.\n\naccount:\n  balance: 500\n  overdraftProtection: true\n  overdraftLimit: 1000\ntransaction:\n  withdrawal: 700\n',
     category: 'default',

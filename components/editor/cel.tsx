@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import { registerCelLanguage } from '@/lib/cel-language';
 import { useTheme } from 'next-themes';
@@ -8,6 +9,7 @@ import * as monaco from 'monaco-editor';
 interface CelEditorProps {
   value: string;
   onChange: (value: string) => void;
+  onSubmit: () => void;
   height?: string;
   options?: any;
 }
@@ -15,13 +17,25 @@ interface CelEditorProps {
 export function CelEditor({
   value,
   onChange,
+  onSubmit,
   height = '50vh',
   options = {},
 }: CelEditorProps) {
   const { theme, resolvedTheme } = useTheme();
+  const onSubmitRef = useRef(onSubmit);
+
+  useEffect(() => {
+    onSubmitRef.current = onSubmit;
+  }, [onSubmit]);
 
   const handleEditorWillMount = (monaco: typeof import('monaco-editor')) => {
     registerCelLanguage(monaco);
+  };
+
+  const handleEditorDidMount = (editor: monaco.editor.IStandaloneCodeEditor, monaco: typeof import('monaco-editor')) => {
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
+      onSubmitRef.current();
+    });
   };
 
   const defaultOptions = {
@@ -68,6 +82,7 @@ export function CelEditor({
       options={defaultOptions}
       theme={editorTheme}
       beforeMount={handleEditorWillMount}
+      onMount={handleEditorDidMount}
     />
   );
 }

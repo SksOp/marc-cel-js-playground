@@ -214,6 +214,7 @@ export function CelPlayground() {
               <CelExpressionEditor
                 value={expression}
                 onChange={setExpression}
+                onSubmit={handleRun}
                 onTemplateSelect={handleTemplateSelect}
               />
               <div className="flex gap-2 justify-end">

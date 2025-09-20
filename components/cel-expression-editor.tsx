@@ -8,6 +8,7 @@ import { CelEditor } from './editor/cel';
 interface CelExpressionEditorProps {
   value: string;
   onChange: (value: string) => void;
+  onSubmit: () => void;
   onTemplateSelect?: (template: {
     cel: string;
     dataInput: string;
@@ -18,6 +19,7 @@ interface CelExpressionEditorProps {
 export function CelExpressionEditor({
   value,
   onChange,
+  onSubmit,
   onTemplateSelect,
 }: CelExpressionEditorProps) {
   return (
@@ -29,7 +31,7 @@ export function CelExpressionEditor({
         )}
       </div>
       <Card className="p-0 overflow-hidden">
-        <CelEditor value={value} onChange={onChange} />
+        <CelEditor value={value} onChange={onChange} onSubmit={onSubmit}/>
       </Card>
     </div>
   );

@@ -27,7 +27,7 @@ const code = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: 'CEL Playground - Interactive Common Expression Language Environment',
+  title: 'CEL-JS Playground | Common Expression Language (CEL) for JavaScript',
   description:
     'Interactive playground for Common Expression Language (CEL) with JavaScript support. Write, test, and share CEL expressions with JSON/YAML variables. Perfect for Kubernetes, Istio, and policy validation.',
   keywords: [
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
     'CEL examples',
     'CEL templates',
   ],
-  authors: [{ name: 'CEL Playground' }],
-  creator: 'CEL Playground',
-  publisher: 'CEL Playground',
+  authors: [{ name: 'Shubham' }],
+  creator: 'Shubham',
+  publisher: 'Shubham',
   formatDetection: {
     email: false,
     address: false,
@@ -57,30 +57,21 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title:
-      'CEL Playground - Interactive Common Expression Language Environment',
+    title: 'CEL-JS Playground',
     description:
       'Interactive playground for Common Expression Language (CEL) with JavaScript support. Write, test, and share CEL expressions with JSON/YAML variables.',
     url: 'https://playceljs.sksop.in/',
-    siteName: 'CEL Playground',
+    siteName: 'CEL-JS Playground',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'CEL Playground - Interactive Common Expression Language Environment',
+        alt: 'CEL-JS Playground',
       },
     ],
     locale: 'en_US',
     type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title:
-      'CEL Playground - Interactive Common Expression Language Environment',
-    description:
-      'Interactive playground for Common Expression Language (CEL) with JavaScript support. Write, test, and share CEL expressions.',
-    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -92,9 +83,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    google: 'your-google-verification-code',
   },
 };
 

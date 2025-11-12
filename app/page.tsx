@@ -6,7 +6,7 @@ export default function Home() {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: 'CEL Playground',
+    name: 'CEL-js Playground',
     description:
       'Interactive playground for Common Expression Language (CEL) with JavaScript support. Write, test, and share CEL expressions with JSON/YAML variables.',
     url: 'https://playceljs.sksop.in/',
@@ -18,8 +18,8 @@ export default function Home() {
       priceCurrency: 'USD',
     },
     creator: {
-      '@type': 'Organization',
-      name: 'CEL Playground',
+      '@type': 'Person',
+      name: 'Shubham',
     },
     featureList: [
       'Interactive CEL expression evaluation',
@@ -30,7 +30,7 @@ export default function Home() {
       'Real-time validation',
     ],
     keywords:
-      'CEL, Common Expression Language, JavaScript, Kubernetes, Istio, policy validation, expression language',
+      'CEL,CEL-JS, Common Expression Language, JavaScript, Kubernetes, Istio, policy validation, expression language',
   };
 
   return (
